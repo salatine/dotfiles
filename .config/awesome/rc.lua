@@ -225,7 +225,7 @@ awful.screen.connect_for_each_screen(function(s)
 		widget = wibox.widget.textbox
 		}
 	runwidget:connect_signal("button::press",
-		function() awful.spawn("/home/wakaba/.config/rofi/launchers/type-7/launcher.sh") end)
+		function() awful.spawn("/home/auau/.config/rofi/launchers/type-7/launcher.sh") end)
 	
 	--Create a powermenu button
 	local powermenu = wibox.widget{
@@ -234,7 +234,7 @@ awful.screen.connect_for_each_screen(function(s)
 		widget = wibox.widget.textbox
 		}
 	powermenu:connect_signal("button::press",
-		function() awful.spawn("/home/wakaba/.config/rofi/powermenu/type-5/powermenu.sh") end)
+		function() awful.spawn("/home/auau/.config/rofi/powermenu/type-5/powermenu.sh") end)
 	
 	--Create a systray widget
 	s.systray = wibox.widget.systray()
@@ -263,9 +263,9 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             spotify_widget({
 				font = 'Sofia Pro Light 11',
-				play_icon = '/usr/share/icons/Arc/actions/24/player_play.png',
-				pause_icon = '/usr/share/icons/Arc/actions/24/player_pause.png',
-				max_length = 50,
+				play_icon = '/usr/share/icons/Papirus-Light/48x48/categories/spotify.svg',
+				pause_icon = '/usr/share/icons/Papirus-Dark/48x48/panel/spotify-indicator.svg',
+				max_length = 60,
 				dim_when_paused = true,
 				dim_opacity = 0.5
 			}),
@@ -353,7 +353,7 @@ globalkeys = gears.table.join(
               {description = "open firefox", group = "applications"}),
     awful.key({modkey}, "e", function () awful.spawn("nautilus") end,
               {description = "open file manager", group = "applications"}),
-	awful.key({modkey}, "r", function () awful.spawn("/home/wakaba/.config/rofi/launchers/type-7/launcher.sh") end,
+	awful.key({modkey}, "r", function () awful.spawn("/home/auau/.config/rofi/launchers/type-7/launcher.sh") end,
               {description = "open rofi", group = "launcher"}),  
     awful.key({ modkey,  "Mod1"    }, "l", function() awful.spawn("betterlockscreen -l blur 1") end,
               {description = "lock screen", group = "screen"}),    
