@@ -12,7 +12,8 @@ local function read_file(path)
     return content
 end
 
-local script_path = "/home/auau/.config/awesome/wakaba_theme/"
+local home = os.getenv("HOME")
+local script_path = home .. "/.config/awesome/wakaba_theme/"
 os.execute(script_path .. "random.sh")
 local result = read_file(script_path .. "random.txt")
 local random_wallpaper = ('\n'..result):gsub("\n<Table [^\n]*", ""):sub(2)
