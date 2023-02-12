@@ -2,4 +2,4 @@
 
 dotfiles for my awesomewm setup
 
-![image](https://user-images.githubusercontent.com/95940523/218239713-c9e9b21d-e05a-4492-9bf2-d8712bf8d1ad.png)
+![image](https://user-images.githubusercontent.com/95940523/218335778-7738be0b-991a-4f66-b0a0-e49d24ed1d31.png)
