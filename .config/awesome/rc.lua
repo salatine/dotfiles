@@ -21,6 +21,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
 local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
+local spotify_shell = require("awesome-wm-widgets.spotify-shell.spotify-shell")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -263,8 +264,8 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             spotify_widget({
 				font = 'Sofia Pro Light 11',
-				play_icon = '/usr/share/icons/Papirus-Light/48x48/categories/spotify.svg',
-				pause_icon = '/usr/share/icons/Papirus-Dark/48x48/panel/spotify-indicator.svg',
+				play_icon = '', --'/usr/share/icons/Papirus-Light/48x48/categories/spotify.svg',
+				pause_icon = '', --'/usr/share/icons/Papirus-Dark/48x48/panel/spotify-indicator.svg',
 				max_length = 60,
 				dim_when_paused = true,
 				dim_opacity = 0.5
@@ -383,9 +384,10 @@ globalkeys = gears.table.join(
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
-    awful.key({ modkey 		  }, "c",     function () awful.spawn("flameshot gui")		  end, 
+    awful.key({ modkey 		  }, "c",     function () awful.spawn("flameshot gui")	      end, 
 	      {description="print screen", group="applications"}),
-
+    awful.key({ modkey,        }, "d", function () spotify_shell.launch() 		      end, 
+	      {description = "spotify shell", group = "music"}),
     awful.key({ modkey, "Control" }, "n",
               function ()
                   local c = awful.client.restore()
