@@ -1,5 +1,5 @@
 __build_info:
-  rime_version: 1.8.4
+  rime_version: 1.8.5
   timestamps:
     default: 1649520780
     default.custom: 0
@@ -7,10 +7,10 @@ __build_info:
     key_bindings: 1649520780
     key_bindings.custom: 0
     luna_pinyin.custom: 0
-    luna_pinyin.schema: 1628133950
+    luna_pinyin.schema: 1675504396
     luna_pinyin_fluency.custom: 0
-    luna_pinyin_fluency.schema: 1628133950
-    pinyin: 1628133950
+    luna_pinyin_fluency.schema: 1675504396
+    pinyin: 1675504396
     pinyin.custom: 0
     punctuation: 1649520780
     punctuation.custom: 0
