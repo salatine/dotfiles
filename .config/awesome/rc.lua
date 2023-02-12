@@ -22,7 +22,7 @@ local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
 local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 local spotify_shell = require("awesome-wm-widgets.spotify-shell.spotify-shell")
-
+local home = os.getenv("HOME")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -226,7 +226,7 @@ awful.screen.connect_for_each_screen(function(s)
 		widget = wibox.widget.textbox
 		}
 	runwidget:connect_signal("button::press",
-		function() awful.spawn("/home/auau/.config/rofi/launchers/type-7/launcher.sh") end)
+		function() awful.spawn(home .. "/.config/rofi/launchers/type-7/launcher.sh") end)
 	
 	--Create a powermenu button
 	local powermenu = wibox.widget{
@@ -235,7 +235,7 @@ awful.screen.connect_for_each_screen(function(s)
 		widget = wibox.widget.textbox
 		}
 	powermenu:connect_signal("button::press",
-		function() awful.spawn("/home/auau/.config/rofi/powermenu/type-5/powermenu.sh") end)
+		function() awful.spawn(home .. "/.config/rofi/powermenu/type-5/powermenu.sh") end)
 	
 	--Create a systray widget
 	s.systray = wibox.widget.systray()
@@ -354,9 +354,9 @@ globalkeys = gears.table.join(
               {description = "open firefox", group = "applications"}),
     awful.key({modkey}, "e", function () awful.spawn("nautilus") end,
               {description = "open file manager", group = "applications"}),
-	awful.key({modkey}, "r", function () awful.spawn("/home/auau/.config/rofi/launchers/type-7/launcher.sh") end,
+	awful.key({modkey}, "r", function () awful.spawn(home .. "/.config/rofi/launchers/type-7/launcher.sh") end,
               {description = "open rofi", group = "launcher"}),  
-    awful.key({ modkey,  "Mod1"    }, "l", function() awful.spawn("betterlockscreen -l blur 1") end,
+    awful.key({ modkey,  "Mod1"    }, "l", function() awful.spawn(home .. "/.config/awesome/random_lock.sh") end,
               {description = "lock screen", group = "screen"}),    
     awful.key({ modkey, "Shift"   }, "s", function() awful.spawn("flameshot gui") end,
               {description = "take a screenshot", group = "applications"}),
