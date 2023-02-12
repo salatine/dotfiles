@@ -112,7 +112,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias neofetch="neofetch --loop --w3m --source ~/.config/neofetch/102585058_p0.png"
+#alias neofetch="neofetch --loop --w3m --source ~/.config/neofetch/102585058_p0.png"
 alias quit="exit"
 alias aseprite="~/aseprite/aseprite"
+alias christmas="curl https://raw.githubusercontent.com/sergiolepore/ChristBASHTree/master/tree-EN.sh | bash"
 export PATH="$PATH:/usr/sbin"
