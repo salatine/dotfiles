@@ -276,7 +276,9 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spacing = 13,
-            battery_widget(),
+            battery_widget{
+				show_current_level = true
+	    },
 	    -- mykeyboardlayout,
             
 	    volume_widget{
