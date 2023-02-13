@@ -275,15 +275,15 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            spacing = 13,
-            battery_widget{
-				show_current_level = true
-	    },
+            spacing = 10,
 	    -- mykeyboardlayout,
-            
 	    volume_widget{
-				widget_type = "icon_and_text"
-            },
+		widget_type = 'text_and_icon',
+	    },
+            battery_widget{
+		show_current_level = true,
+		font = 'Sofia Pro Light 11'
+	    },
             mytextclock,
             s.systray,
             systoggle,
