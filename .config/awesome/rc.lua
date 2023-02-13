@@ -22,6 +22,7 @@ local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
 local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 local spotify_shell = require("awesome-wm-widgets.spotify-shell.spotify-shell")
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local home = os.getenv("HOME")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -275,8 +276,10 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spacing = 13,
-            -- mykeyboardlayout,
-            volume_widget{
+            battery_widget(),
+	    -- mykeyboardlayout,
+            
+	    volume_widget{
 				widget_type = "icon_and_text"
             },
             mytextclock,
