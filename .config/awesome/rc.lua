@@ -603,6 +603,17 @@ awful.rules.rules = {
 -- }}}
 
 -- {{{ Signals
+-- Signal function to actual fullscreen behaviour
+client.connect_signal("property::fullscreen", function(c)
+  if c.fullscreen then
+    gears.timer.delayed_call(function()
+      if c.valid then
+        c:geometry(c.screen.geometry)
+      end
+    end)
+  end
+end)
+
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
