@@ -116,4 +116,8 @@ fi
 alias quit="exit"
 alias aseprite="~/aseprite/aseprite"
 alias christmas="curl https://raw.githubusercontent.com/sergiolepore/ChristBASHTree/master/tree-EN.sh | bash"
+alias vim="lvim"
+alias termux="xtightvncviewer 192.168.0.188:1 -passwd ~/passwd -fullscreen" 
+alias steam="DRI_PRIME=1 steam"
+alias lutris="DRI_PRIME=1 lutris"
 export PATH="$PATH:/usr/sbin"
