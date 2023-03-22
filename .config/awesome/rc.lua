@@ -291,6 +291,7 @@ awful.screen.connect_for_each_screen(function(s)
             powermenu,
         },
     }
+    s.mywibox.visible = false 
 end)
 -- }}}
 
@@ -353,8 +354,11 @@ globalkeys = gears.table.join(
             end
         end,
         {description = "go back", group = "client"}),
-
-	-- Applications
+  awful.key({ modkey, "Shift" }, "v", function ()
+    local screen = awful.screen.focused()
+    screen.mywibox.visible = not screen.mywibox.visible
+  end, {description = "turn wibar invisible", group = "client"}),
+  -- Applications
 	awful.key({modkey}, "b", function () awful.spawn("flatpak run org.mozilla.firefox") end,
               {description = "open firefox", group = "applications"}),
     awful.key({modkey}, "e", function () awful.spawn("nautilus") end,
@@ -520,14 +524,14 @@ end
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        c:emit_signal("request::activate", "mouse_click", {raise = false})
     end),
     awful.button({ modkey }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        c:emit_signal("request::activate", "mouse_click", {raise = false})
         awful.mouse.client.move(c)
     end),
     awful.button({ modkey }, 3, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        c:emit_signal("request::activate", "mouse_click", {raise = false})
         awful.mouse.client.resize(c)
     end)
 )
@@ -586,7 +590,7 @@ awful.rules.rules = {
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
     --{ rule_any = {type = { "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 	
 	-- Removes titlebar on clients that already have it 
@@ -674,8 +678,8 @@ client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+-- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
 beautiful.useless_gap = 5
@@ -683,16 +687,5 @@ beautiful.useless_gap = 5
 --Autostart
 awful.spawn.with_shell("fcitx -d")
 awful.spawn.with_shell("picom &")
-
-awful.key({"Mod1"            }, "2",
-    function ()
-        local cc = {}
-        for _, c in ipairs(client.get()) do
-            if awful.widget.tasklist.filter.currenttags(c, mouse.screen) then cc[#cc + 1] = c end
-        end
-        local new_focused = cc[2]
-        if new_focused then client.focus = new_focused; new_focused:raise() end
-    end
-)
 
 package.loaded["naughty.dbus"] = {}
