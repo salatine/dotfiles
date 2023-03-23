@@ -365,7 +365,8 @@ globalkeys = gears.table.join(
     awful.key({modkey}, "e", function () awful.spawn("nautilus") end,
               {description = "open file manager", group = "applications"}),
 	awful.key({modkey}, "r", function () fade_to_random_wallpaper(20, 1/60, function(surf)
-                gears.wallpaper.fit(surf) end) end, 
+                gears.wallpaper.fit(surf)end)
+                collectgarbage("collect") end, 
               {description = "change wallpaper randomly", group = "screen"}),  
     awful.key({ modkey,  "Mod1"    }, "l", function() awful.spawn(home .. "/.config/awesome/random_lock.sh") end,
               {description = "lock screen", group = "screen"}),    
@@ -718,7 +719,6 @@ function fade_to_random_wallpaper(steps, interval, callback)
     end
     -- Setting a new wallpaper invalidates any surface returned
     -- by root.wallpaper(), so create a copy.
-    old_wp = surface.duplicate_surface(old_wp)
     local steps_done = 0
     timer.start_new(interval, function()
         steps_done = steps_done + 1
