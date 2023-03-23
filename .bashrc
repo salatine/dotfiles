@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-	export PS1="\[$(tput bold)\]\[\033[38;5;212m\]\u@\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;98m\]\W\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"
+  export PS1="\[\033[38;5;141m\]\u@\h:\[$(tput sgr0)\]\[\033[38;5;151m\]\W\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -120,4 +120,5 @@ alias vim="lvim"
 alias termux="xtightvncviewer 192.168.0.188:1 -passwd ~/passwd -fullscreen" 
 alias steam="DRI_PRIME=1 steam"
 alias lutris="DRI_PRIME=1 lutris"
+alias xdg-open="open"
 export PATH="$PATH:/usr/sbin"
