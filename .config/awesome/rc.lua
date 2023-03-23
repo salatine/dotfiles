@@ -5,6 +5,9 @@ pcall(require, "luarocks.loader")
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+local surface = require("gears.surface")
+local cairo = require("lgi").cairo
+local timer = require("gears.timer")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -161,16 +164,14 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
+        gears.wallpaper.fit(wallpaper, s)
     end
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-        set_wallpaper(s)
-
+    set_wallpaper(s)
     -- Each screen has its own tag table.
     awful.tag({ " 一 ", " 二 ", " 三 ", " 四 ", " 五 " }, s, awful.layout.layouts[1])
 
@@ -363,8 +364,9 @@ globalkeys = gears.table.join(
               {description = "open firefox", group = "applications"}),
     awful.key({modkey}, "e", function () awful.spawn("nautilus") end,
               {description = "open file manager", group = "applications"}),
-	awful.key({modkey}, "r", function () awful.spawn(home .. "/.config/rofi/launchers/type-7/launcher.sh") end,
-              {description = "open rofi", group = "launcher"}),  
+	awful.key({modkey}, "r", function () fade_to_random_wallpaper(20, 1/60, function(surf)
+                gears.wallpaper.fit(surf) end) end, 
+              {description = "change wallpaper randomly", group = "screen"}),  
     awful.key({ modkey,  "Mod1"    }, "l", function() awful.spawn(home .. "/.config/awesome/random_lock.sh") end,
               {description = "lock screen", group = "screen"}),    
     awful.key({ modkey, "Shift"   }, "s", function() awful.spawn("flameshot gui") end,
@@ -681,6 +683,53 @@ end)
 -- client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 -- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+
+-- "Mix" two surface based on a factor between 0 and 1
+function mix_surfaces(first, second, factor)
+    local result = surface.duplicate_surface(first)
+    local cr = cairo.Context(result)
+    cr:set_source_surface(second, 0, 0)
+    cr:paint_with_alpha(factor)
+    return result
+end
+
+function random_wallpaper()
+  local script_path =  os.getenv("HOME") .. "/.config/awesome/wakaba_theme/"
+  local wallpaper
+  while wallpaper == nil or wallpaper == beautiful.wallpaper do
+    os.execute(script_path .. "random.sh")
+    local file = io.open(script_path .. "random.txt", "r")
+    wallpaper = file:read("l")
+  end
+  return wallpaper
+end
+-- Get the current wallpaper and do a fade 'steps' times with 'interval'
+-- seconds between steps. At each step, the wallpapers are mixed and the
+-- result is given to 'callback'. If no wallpaper is set, the callback
+-- function is directly called with the new wallpaper.
+function fade_to_random_wallpaper(steps, interval, callback)
+    local new_wp = random_wallpaper()
+    new_wp = surface(new_wp)
+    local old_wp = surface(beautiful.wallpaper)
+    if not old_wp then
+        callback(new_wp)
+        return
+    end
+    -- Setting a new wallpaper invalidates any surface returned
+    -- by root.wallpaper(), so create a copy.
+    old_wp = surface.duplicate_surface(old_wp)
+    local steps_done = 0
+    timer.start_new(interval, function()
+        steps_done = steps_done + 1
+        local mix = mix_surfaces(old_wp, new_wp, steps_done / steps)
+        callback(mix)
+        mix:finish()
+        beautiful.wallpaper = new_wp
+        return steps_done <= steps
+    end)
+end
+
 
 beautiful.useless_gap = 5
 
