@@ -292,7 +292,7 @@ awful.screen.connect_for_each_screen(function(s)
             powermenu,
         },
     }
-    s.mywibox.visible = false 
+    s.mywibox.visible = true
 end)
 -- }}}
 
@@ -695,6 +695,24 @@ function mix_surfaces(first, second, factor)
     return result
 end
 
+function get_maximized_surface(surf, width, height)
+    local img = cairo.ImageSurface(cairo.Format.ARGB32, width, height)
+    local cr = cairo.Context(img)
+    local oldWidth, oldHeight = gears.surface.get_size(surf)
+    local widthRatio = width / oldWidth
+    local heightRatio = height / oldHeight
+
+    local scale = math.max(widthRatio, heightRatio)
+    cr:scale(scale, scale)
+
+    cr:translate((width / scale - oldWidth) / 2, (height / scale - oldHeight) / 2)
+    cr:set_source_surface(surf)
+    cr.operator = cairo.Operator.SOURCE
+    cr:paint()
+
+    return img
+end
+
 function random_wallpaper()
   local script_path =  os.getenv("HOME") .. "/.config/awesome/wakaba_theme/"
   local wallpaper
@@ -711,7 +729,11 @@ end
 -- function is directly called with the new wallpaper.
 function fade_to_random_wallpaper(steps, interval, callback)
     local new_wp = random_wallpaper()
-    new_wp = surface(new_wp)
+
+    -- get screen width and height
+    local screen_width = awful.screen.focused().geometry.width
+    local screen_height = awful.screen.focused().geometry.height
+    new_wp = get_maximized_surface(surface(new_wp), screen_width, screen_height)
     local old_wp = surface(beautiful.wallpaper)
     if not old_wp then
         callback(new_wp)
