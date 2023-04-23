@@ -565,6 +565,8 @@ awful.rules.rules = {
           "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
           "pinentry",
+          "riotclientux.exe",
+          "leagueclientux.exe",
         },
         class = {
           "Arandr",
@@ -589,7 +591,17 @@ awful.rules.rules = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
-
+    -- Fullscreen clients
+    {
+        rule_any = {
+            instance = {
+                "league of legends.exe",
+            }
+        },
+        properties = {
+            fullscreen = true,
+        },
+    },
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
     --{ rule_any = {type = { "dialog" }
