@@ -223,7 +223,7 @@ awful.screen.connect_for_each_screen(function(s)
 		
 	--Create a run button
 	local runwidget = wibox.widget{
-		text = "  ",
+		text = " ᐅ ",
 		font = "Sofia Pro Light 13",
 		widget = wibox.widget.textbox
 		}
@@ -245,7 +245,7 @@ awful.screen.connect_for_each_screen(function(s)
 	
 	--Create a systray toggle widget
 	local systoggle = wibox.widget{
-	text = "",
+	text = "ᐸ",
 	font = "Sofia Pro Light 10",
 	widget = wibox.widget.textbox
 	}
@@ -360,9 +360,9 @@ globalkeys = gears.table.join(
     screen.mywibox.visible = not screen.mywibox.visible
   end, {description = "turn wibar invisible", group = "client"}),
   -- Applications
-	awful.key({modkey}, "b", function () awful.spawn("flatpak run org.mozilla.firefox") end,
+	awful.key({modkey}, "b", function () awful.spawn("firefox") end,
               {description = "open firefox", group = "applications"}),
-    awful.key({modkey}, "e", function () awful.spawn("nautilus") end,
+    awful.key({modkey}, "e", function () awful.spawn("nemo") end,
               {description = "open file manager", group = "applications"}),
 	awful.key({modkey}, "r", function () fade_to_random_wallpaper(20, 1/60, function(surf)
                 gears.wallpaper.fit(surf)end)
@@ -719,7 +719,7 @@ function random_wallpaper()
   while wallpaper == nil or wallpaper == beautiful.wallpaper do
     os.execute(script_path .. "random.sh")
     local file = io.open(script_path .. "random.txt", "r")
-    wallpaper = file:read("l")
+    wallpaper = file:read("*line")
   end
   return wallpaper
 end
