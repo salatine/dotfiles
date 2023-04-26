@@ -610,15 +610,17 @@ awful.rules.rules = {
     },
     properties = { floating = true }
   },
-  -- Fullscreen clients
+  -- Games
   {
     rule_any = {
-      instance = {
+      class = {
         "league of legends.exe",
+        "osu!.exe",
       }
     },
     properties = {
-      fullscreen = true,
+      floating = true,
+      bypass_compositor = true,
     },
   },
   -- Add titlebars to normal clients and dialogs
@@ -655,6 +657,14 @@ client.connect_signal("property::fullscreen", function(c)
       end
     end)
   end
+end)
+
+-- Signal function to perform compositor bypassing
+awesome.register_xproperty("_NET_WM_BYPASS_COMPOSITOR", "number")
+client.connect_signal("property::bypass_compositor", function (c)
+    local xproperty_value = c.bypass_compositor and 1 or 0
+    
+    c:set_xproperty("_NET_WM_BYPASS_COMPOSITOR", xproperty_value)
 end)
 
 -- Signal function to execute when a new client appears.
