@@ -1,3 +1,3 @@
-file=$(find $HOME/.wallpapers/lockscreen -type f | shuf -n 1)
-betterlockscreen -u $file
+wallpaperFolder="$HOME/.wallpapers/lockscreen/"
 betterlockscreen -l blur 1
+betterlockscreen -u $wallpaperFolder
