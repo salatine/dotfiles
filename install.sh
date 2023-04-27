@@ -6,7 +6,6 @@ ignoreFiles=( "install.sh" "readme.md" ".git" )
 
 main() {
     addRootFiles
-    checkConfig
     addConfigFiles
     addShareFolders
 }
@@ -40,6 +39,7 @@ checkConfig() {
 }
 
 addConfigFiles() {
+    checkConfig
     for folder in $(find "$scriptDir/.config" -maxdepth 1 -type d | grep ".config/"); do
         if [ -d "$home/.config/$(basename $folder)" ]; then
             echo "$home/.config/$(basename $folder) already exists, overwrite? (y/n)"
