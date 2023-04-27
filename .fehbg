@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/env bash
 feh --no-fehbg --bg-fill "$HOME/.cache/betterlockscreen/current/wall_dim.png"

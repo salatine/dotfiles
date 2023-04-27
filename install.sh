@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 shareFolders=( ".fonts" ".icons" ".themes" )
 home="$HOME"
