@@ -22,11 +22,11 @@ addRootFiles() {
             read overwrite
             if [ "$overwrite" == "y" ]; then
                 cp $file $home
-                echo "Overwrote $home/$(basename $file)"
+                echo "overwrote $home/$(basename $file)"
             fi
         else
             cp $file $home
-            echo "Copied $file to $home"
+            echo "copied $file to $home"
         fi
     done
 }
@@ -34,7 +34,7 @@ addRootFiles() {
 checkConfig() {
     if [ ! -d "$home/.config" ]; then
         mkdir $home/.config
-        echo "Created $home/.config"
+        echo "created $home/.config"
     fi
 }
 
@@ -46,11 +46,11 @@ addConfigFiles() {
             read overwrite
             if [ "$overwrite" == "y" ]; then
                 cp -r $folder $home/.config
-                echo "Overwrote $home/.config/$(basename $folder)"
+                echo "overwrote $home/.config/$(basename $folder)"
             fi
         else
             cp -r $folder $home/.config
-            echo "Copied $folder to $home/.config"
+            echo "copied $folder to $home/.config"
         fi
     done
 }
@@ -61,10 +61,10 @@ addShareFolders() {
         if [ ! -d "$home/.local/share/$shareFolder" ]; then
             
             mkdir -p $home/.local/share/$shareFolder
-            echo "Created $home/.local/share/$shareFolder"
+            echo "created $home/.local/share/$shareFolder"
         fi
         cp -r $scriptDir/$folder/* $home/.local/share/$shareFolder
-        echo "Copied $scriptDir/$folder/* to $home/.local/share/$shareFolder"
+        echo "copied $scriptDir/$folder/* to $home/.local/share/$shareFolder"
     done
 }
 
