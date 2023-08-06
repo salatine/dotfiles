@@ -30,6 +30,7 @@ local home = os.getenv("HOME")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
+
 if awesome.startup_errors then
   naughty.notify({
     preset = naughty.config.presets.critical,
@@ -301,7 +302,7 @@ awful.screen.connect_for_each_screen(function(s)
       powermenu,
     },
   }
-  s.mywibox.visible = true
+  s.mywibox.visible = false 
 end)
 -- }}}
 
@@ -393,6 +394,8 @@ globalkeys = gears.table.join(
     { description = "open a terminal", group = "launcher" }),
   awful.key({ modkey, "Control" }, "r", awesome.restart,
     { description = "reload awesome", group = "awesome" }),
+  awful.key({ modkey, "Shift" }, "q", awesome.quit,
+    { description = "quit awesome", group = "awesome" }),
   awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
     { description = "increase master width factor", group = "layout" }),
   awful.key({ modkey, }, "h", function() awful.tag.incmwfact(-0.05) end,
@@ -618,7 +621,7 @@ awful.rules.rules = {
     },
     properties = {
       floating = true,
-      bypass_compositor = true,
+      bypass_compositor = false,
     },
   },
   -- Add titlebars to normal clients and dialogs
@@ -658,12 +661,12 @@ client.connect_signal("property::fullscreen", function(c)
 end)
 
 -- Signal function to perform compositor bypassing
-awesome.register_xproperty("_NET_WM_BYPASS_COMPOSITOR", "number")
-client.connect_signal("property::bypass_compositor", function (c)
-    local xproperty_value = c.bypass_compositor and 1 or 0
-    
-    c:set_xproperty("_NET_WM_BYPASS_COMPOSITOR", xproperty_value)
-end)
+--awesome.register_xproperty("_NET_WM_BYPASS_COMPOSITOR", "number")
+--client.connect_signal("property::bypass_compositor", function(c)
+--  local xproperty_value = c.bypass_compositor and 1 or 0
+--
+--  c:set_xproperty("_NET_WM_BYPASS_COMPOSITOR", xproperty_value)
+--end)
 
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
@@ -800,7 +803,7 @@ function fade_to_random_wallpaper(steps, interval, callback)
   end)
 end
 
-beautiful.useless_gap = 5
+beautiful.useless_gap = 0
 
 --Autostart
 awful.spawn.with_shell("fcitx -d")
